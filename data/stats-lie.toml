@@ -1,0 +1,50 @@
+# DELIBERATELY WRONG stats — the P2 lab exercise.
+# Table sizes reversed, join-key NDVs crushed, filter NDVs
+# inflated. Run: OPTIMIZE_STATS=data/stats-lie.toml ... and
+# watch a correct DP pick a terrible plan. Write three
+# sentences in LEDGER.md about why.
+
+[customer]
+rows = 500000
+
+[customer.ndv]
+c_custkey = 2
+c_name = 100000
+c_nationkey = 2500
+c_mktsegment = 500
+c_acctbal = 100000
+
+[orders]
+rows = 40
+
+[orders.ndv]
+o_orderkey = 2
+o_custkey = 2
+o_orderstatus = 300
+o_totalprice = 499600
+o_orderdate = 206200
+o_orderpriority = 500
+
+[lineitem]
+rows = 25
+
+[lineitem.ndv]
+l_orderkey = 2
+l_partkey = 2
+l_linenumber = 800
+l_quantity = 5000
+l_extendedprice = 994000
+l_discount = 1100
+l_shipdate = 230400
+l_returnflag = 300
+
+[part]
+rows = 900000
+
+[part.ndv]
+p_partkey = 2
+p_name = 80000
+p_brand = 2500
+p_size = 5000
+p_retailprice = 79800
+

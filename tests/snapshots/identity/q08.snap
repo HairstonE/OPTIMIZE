@@ -1,0 +1,10 @@
+---
+source: tests/explain_snapshots.rs
+description: "-- explicit join with a selective dimension filter\nSELECT p_name, l_extendedprice\nFROM part INNER JOIN lineitem ON p_partkey = l_partkey\nWHERE p_brand = 'Brand#23'"
+expression: rendered
+---
+Project [#0.1, #1.4]
+  Filter (#0.2 = 'Brand#23')
+    Join on=[#0.0 = #1.1]
+      Scan #0
+      Scan #1

@@ -1,0 +1,13 @@
+---
+source: tests/explain_snapshots.rs
+description: "-- comma-join with single-relation filters on BOTH sides (pushdown bait)\nSELECT c_name, o_orderdate\nFROM customer, orders\nWHERE c_custkey = o_custkey\n  AND c_mktsegment = 'MACHINERY'\n  AND o_orderstatus = 'F'"
+expression: rendered
+---
+ProjectPhys [#0.1, #1.4]
+  HashJoinPhys on=[#0.0 = #1.1] (build, probe)
+    FilterPhys (#0.3 = 'MACHINERY')
+      ProjectPhys [#0.0, #0.1, #0.3]
+        ScanPhys #0
+    FilterPhys (#1.2 = 'F')
+      ProjectPhys [#1.1, #1.2, #1.4]
+        ScanPhys #1

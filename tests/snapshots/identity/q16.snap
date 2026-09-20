@@ -1,0 +1,12 @@
+---
+source: tests/explain_snapshots.rs
+description: "-- explicit JOIN chain written largest-first: fine at P0 (hash joins),\n-- but the ORDER of those hash joins is still textual until P2\nSELECT c_name, l_extendedprice\nFROM lineitem\nINNER JOIN orders ON l_orderkey = o_orderkey\nINNER JOIN customer ON o_custkey = c_custkey\nWHERE c_mktsegment = 'AUTOMOBILE' AND l_discount > 0.05"
+expression: rendered
+---
+Project [#2.1, #0.4]
+  Filter ((#2.3 = 'AUTOMOBILE') AND (#0.5 > 0.05))
+    Join on=[#1.1 = #2.0]
+      Join on=[#0.0 = #1.0]
+        Scan #0
+        Scan #1
+      Scan #2

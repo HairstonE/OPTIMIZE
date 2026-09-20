@@ -1,0 +1,10 @@
+---
+source: tests/explain_snapshots.rs
+description: "-- comma-join with single-relation filters on BOTH sides (pushdown bait)\nSELECT c_name, o_orderdate\nFROM customer, orders\nWHERE c_custkey = o_custkey\n  AND c_mktsegment = 'MACHINERY'\n  AND o_orderstatus = 'F'"
+expression: rendered
+---
+Project [#0.1, #1.4]
+  Filter ((#0.0 = #1.1) AND (#0.3 = 'MACHINERY') AND (#1.2 = 'F'))
+    Join on=[]
+      Scan #0
+      Scan #1

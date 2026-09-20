@@ -1,0 +1,7 @@
+---
+source: tests/explain_snapshots.rs
+description: "-- adversarial: constant-false predicate. Gate 1 requires zero rows READ.\nSELECT * FROM lineitem WHERE 1 = 0"
+expression: rendered
+---
+ProjectPhys [#0.0, #0.1, #0.2, #0.3, #0.4, #0.5, #0.6, #0.7]
+  EmptyScanPhys [#0]

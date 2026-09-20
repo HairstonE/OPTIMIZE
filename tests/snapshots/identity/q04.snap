@@ -1,0 +1,8 @@
+---
+source: tests/explain_snapshots.rs
+description: "-- OR/AND mix with inequality\nSELECT p_partkey, p_brand, p_size\nFROM part\nWHERE (p_size = 5 OR p_size = 10) AND p_brand <> 'Brand#11'"
+expression: rendered
+---
+Project [#0.0, #0.2, #0.3]
+  Filter (((#0.3 = 5) OR (#0.3 = 10)) AND (#0.2 <> 'Brand#11'))
+    Scan #0

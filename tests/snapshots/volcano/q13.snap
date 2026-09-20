@@ -1,0 +1,18 @@
+---
+source: tests/explain_snapshots.rs
+description: "-- 4-way chain in the worst possible textual order; filter at the far end\nSELECT c_name, p_name\nFROM part, customer, lineitem, orders\nWHERE p_partkey = l_partkey\n  AND o_orderkey = l_orderkey\n  AND c_custkey = o_custkey\n  AND c_acctbal < 0.0"
+expression: rendered
+---
+ProjectPhys [#1.1, #0.1]
+  HashJoinPhys on=[#0.0 = #2.1] (build, probe)
+    ProjectPhys [#0.0, #0.1]
+      ScanPhys #0
+    HashJoinPhys on=[#2.0 = #3.0] (build, probe)
+      HashJoinPhys on=[#1.0 = #3.1] (build, probe)
+        FilterPhys (#1.4 < 0.0)
+          ProjectPhys [#1.0, #1.1, #1.4]
+            ScanPhys #1
+        ProjectPhys [#3.0, #3.1]
+          ScanPhys #3
+      ProjectPhys [#2.0, #2.1]
+        ScanPhys #2

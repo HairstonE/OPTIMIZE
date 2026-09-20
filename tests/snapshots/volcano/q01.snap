@@ -1,0 +1,8 @@
+---
+source: tests/explain_snapshots.rs
+description: "-- point lookup on a key column: the simplest possible plan\nSELECT * FROM customer WHERE c_custkey = 421"
+expression: rendered
+---
+ProjectPhys [#0.0, #0.1, #0.2, #0.3, #0.4]
+  FilterPhys (#0.0 = 421)
+    ScanPhys #0

@@ -1,0 +1,9 @@
+---
+source: tests/explain_snapshots.rs
+description: "-- redundancy bait: double negation + duplicate conjunct (P1 pass 4)\nSELECT l_orderkey, l_quantity\nFROM lineitem\nWHERE NOT (NOT (l_quantity > 45)) AND l_quantity > 45"
+expression: rendered
+---
+Project [#0.0, #0.3]
+  Filter (#0.3 > 45)
+    Project [#0.0, #0.3]
+      Scan #0

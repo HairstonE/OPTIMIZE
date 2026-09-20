@@ -1,0 +1,9 @@
+---
+source: tests/explain_snapshots.rs
+description: "-- fold-true conjunct + duplicated predicate\nSELECT p_partkey FROM part WHERE 1 = 1 AND p_size = 5 AND p_size = 5"
+expression: rendered
+---
+ProjectPhys [#0.0]
+  FilterPhys (#0.3 = 5)
+    ProjectPhys [#0.0, #0.3]
+      ScanPhys #0

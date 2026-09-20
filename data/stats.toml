@@ -1,0 +1,47 @@
+# TRUE stats, computed from the generated data by gen_data.py.
+# rows + per-column NDV only; anything fancier is SEAM-COST.
+
+[customer]
+rows = 1000
+
+[customer.ndv]
+c_custkey = 1000
+c_name = 1000
+c_nationkey = 25
+c_mktsegment = 5
+c_acctbal = 1000
+
+[orders]
+rows = 5000
+
+[orders.ndv]
+o_orderkey = 5000
+o_custkey = 993
+o_orderstatus = 3
+o_totalprice = 4996
+o_orderdate = 2062
+o_orderpriority = 5
+
+[lineitem]
+rows = 10000
+
+[lineitem.ndv]
+l_orderkey = 5000
+l_partkey = 800
+l_linenumber = 8
+l_quantity = 50
+l_extendedprice = 9940
+l_discount = 11
+l_shipdate = 2304
+l_returnflag = 3
+
+[part]
+rows = 800
+
+[part.ndv]
+p_partkey = 800
+p_name = 800
+p_brand = 25
+p_size = 50
+p_retailprice = 798
+

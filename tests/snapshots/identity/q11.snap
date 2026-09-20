@@ -1,0 +1,12 @@
+---
+source: tests/explain_snapshots.rs
+description: "-- 3-way comma-join, biggest table listed first (bad textual order)\nSELECT c_name, o_orderkey, l_quantity\nFROM lineitem, customer, orders\nWHERE c_custkey = o_custkey\n  AND o_orderkey = l_orderkey\n  AND c_nationkey = 3"
+expression: rendered
+---
+Project [#1.1, #2.0, #0.3]
+  Filter ((#1.0 = #2.1) AND (#2.0 = #0.0) AND (#1.2 = 3))
+    Join on=[]
+      Join on=[]
+        Scan #0
+        Scan #1
+      Scan #2

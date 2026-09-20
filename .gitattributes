@@ -1,0 +1,2 @@
+# keep the seeded corpus byte-identical: never normalize line endings
+*.csv -text

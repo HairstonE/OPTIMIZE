@@ -1,0 +1,22 @@
+---
+source: tests/explain_snapshots.rs
+description: "-- 5-way with a self-join through aliases (customers sharing a nation),\n-- in hostile textual order. The only corpus query where aliases matter.\nSELECT c1.c_name, c2.c_name, o1.o_orderkey\nFROM lineitem, orders AS o1, customer AS c1, customer AS c2, part\nWHERE o1.o_orderkey = l_orderkey\n  AND o1.o_custkey = c1.c_custkey\n  AND c1.c_nationkey = c2.c_nationkey\n  AND l_partkey = p_partkey\n  AND p_brand = 'Brand#55'\n  AND c2.c_acctbal < -900.0"
+expression: rendered
+---
+ProjectPhys [#2.1, #3.1, #1.0]
+  HashJoinPhys on=[#2.2 = #3.2] (build, probe)
+    FilterPhys (#3.4 < -900.0)
+      ProjectPhys [#3.1, #3.2, #3.4]
+        ScanPhys #3
+    HashJoinPhys on=[#1.1 = #2.0] (build, probe)
+      HashJoinPhys on=[#0.0 = #1.0] (build, probe)
+        HashJoinPhys on=[#0.1 = #4.0] (build, probe)
+          FilterPhys (#4.2 = 'Brand#55')
+            ProjectPhys [#4.0, #4.2]
+              ScanPhys #4
+          ProjectPhys [#0.0, #0.1]
+            ScanPhys #0
+        ProjectPhys [#1.0, #1.1]
+          ScanPhys #1
+      ProjectPhys [#2.0, #2.1, #2.2]
+        ScanPhys #2

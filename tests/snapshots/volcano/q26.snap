@@ -1,0 +1,12 @@
+---
+source: tests/explain_snapshots.rs
+description: "-- interesting-orders bait (added in P2 — COURSE.md changelog 2026-09-01).\n-- The join EXPANDS rows (1000 customers -> ~5000 output), so sorting the\n-- small outer early beats sorting the big output late; q20's join\n-- contracts, so there the root Sort honestly wins.\n-- Projects ONLY c_custkey: tied rows are identical, so the result is\n-- deterministic even though the sort key alone underdetermines tie order.\nSELECT c_custkey\nFROM customer, orders\nWHERE c_custkey = o_custkey\nORDER BY c_custkey"
+expression: rendered
+---
+ProjectPhys [#0.0]
+  SortPhys [#0.0 ASC]
+    HashJoinPhys on=[#0.0 = #1.1] (build, probe)
+      ProjectPhys [#0.0]
+        ScanPhys #0
+      ProjectPhys [#1.1]
+        ScanPhys #1

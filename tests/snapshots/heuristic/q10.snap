@@ -1,0 +1,12 @@
+---
+source: tests/explain_snapshots.rs
+description: "-- projection pruning bait: one output column, wide tables underneath\nSELECT o_orderkey\nFROM orders, customer\nWHERE o_custkey = c_custkey AND c_nationkey = 7"
+expression: rendered
+---
+Project [#0.0]
+  Join on=[#0.1 = #1.0]
+    Project [#0.0, #0.1]
+      Scan #0
+    Filter (#1.2 = 7)
+      Project [#1.0, #1.2]
+        Scan #1

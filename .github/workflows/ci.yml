@@ -1,0 +1,19 @@
+# House rule 1: the differential runs on every commit; a red differential
+# blocks everything else. Tolerant mode here (stubs SKIP) — gates are run
+# locally with `make gateN` (strict).
+name: differential
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: 1.98.0
+      - uses: Swatinem/rust-cache@v2
+      - name: Install DuckDB CLI (oracle 2)
+        run: |
+          curl -fsSL https://install.duckdb.org | sh
+          echo "$HOME/.duckdb/cli/latest" >> "$GITHUB_PATH"
+      - run: cargo test

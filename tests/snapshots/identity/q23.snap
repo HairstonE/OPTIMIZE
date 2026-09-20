@@ -1,0 +1,8 @@
+---
+source: tests/explain_snapshots.rs
+description: "-- pathological nesting: NOT over OR, duplicate subterms both branches\nSELECT o_orderkey\nFROM orders\nWHERE NOT (o_orderstatus = 'P' OR (o_totalprice < 1000.0 AND o_totalprice < 1000.0))\n  AND (o_orderpriority = '1-URGENT' OR o_orderpriority = '1-URGENT')"
+expression: rendered
+---
+Project [#0.0]
+  Filter (NOT (((#0.2 = 'P') OR ((#0.3 < 1000.0) AND (#0.3 < 1000.0)))) AND ((#0.5 = '1-URGENT') OR (#0.5 = '1-URGENT')))
+    Scan #0

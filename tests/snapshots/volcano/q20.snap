@@ -1,0 +1,13 @@
+---
+source: tests/explain_snapshots.rs
+description: "-- interesting-orders bait: ORDER BY on the join key. A DP entry already\n-- ordered on o_orderkey can beat cheapest-unordered + Sort (P2 gate 4).\nSELECT o_orderkey, o_totalprice, l_linenumber\nFROM orders, lineitem\nWHERE o_orderkey = l_orderkey AND l_quantity > 40\nORDER BY o_orderkey, l_linenumber"
+expression: rendered
+---
+ProjectPhys [#0.0, #0.3, #1.2]
+  SortPhys [#0.0 ASC, #1.2 ASC]
+    HashJoinPhys on=[#0.0 = #1.0] (build, probe)
+      FilterPhys (#1.3 > 40)
+        ProjectPhys [#1.0, #1.2, #1.3]
+          ScanPhys #1
+      ProjectPhys [#0.0, #0.3]
+        ScanPhys #0

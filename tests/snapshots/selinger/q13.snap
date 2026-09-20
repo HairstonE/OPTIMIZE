@@ -1,0 +1,18 @@
+---
+source: tests/explain_snapshots.rs
+description: "-- 4-way chain in the worst possible textual order; filter at the far end\nSELECT c_name, p_name\nFROM part, customer, lineitem, orders\nWHERE p_partkey = l_partkey\n  AND o_orderkey = l_orderkey\n  AND c_custkey = o_custkey\n  AND c_acctbal < 0.0"
+expression: rendered
+---
+Project [#1.1, #0.1]
+  Join on=[#2.1 = #0.0]
+    Join on=[#3.0 = #2.0]
+      Join on=[#1.0 = #3.1]
+        Filter (#1.4 < 0.0)
+          Project [#1.0, #1.1, #1.4]
+            Scan #1
+        Project [#3.0, #3.1]
+          Scan #3
+      Project [#2.0, #2.1]
+        Scan #2
+    Project [#0.0, #0.1]
+      Scan #0

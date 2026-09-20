@@ -1,0 +1,18 @@
+---
+source: tests/explain_snapshots.rs
+description: "-- 4-way; the highly selective filter (one customer) is textually last\nSELECT o_orderkey, o_totalprice, p_retailprice\nFROM orders, lineitem, part, customer\nWHERE o_orderkey = l_orderkey\n  AND l_partkey = p_partkey\n  AND o_custkey = c_custkey\n  AND c_custkey = 77"
+expression: rendered
+---
+Project [#0.0, #0.3, #2.4]
+  Join on=[#1.1 = #2.0]
+    Join on=[#0.0 = #1.0]
+      Join on=[#3.0 = #0.1]
+        Filter (#3.0 = 77)
+          Project [#3.0]
+            Scan #3
+        Project [#0.0, #0.1, #0.3]
+          Scan #0
+      Project [#1.0, #1.1]
+        Scan #1
+    Project [#2.0, #2.4]
+      Scan #2

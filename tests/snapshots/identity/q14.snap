@@ -1,0 +1,12 @@
+---
+source: tests/explain_snapshots.rs
+description: "-- star around lineitem with two dimension filters\nSELECT l_orderkey, l_linenumber\nFROM lineitem, part, orders\nWHERE l_partkey = p_partkey\n  AND l_orderkey = o_orderkey\n  AND p_brand = 'Brand#44'\n  AND o_orderstatus = 'O'"
+expression: rendered
+---
+Project [#0.0, #0.2]
+  Filter ((#0.1 = #1.0) AND (#0.0 = #2.0) AND (#1.2 = 'Brand#44') AND (#2.2 = 'O'))
+    Join on=[]
+      Join on=[]
+        Scan #0
+        Scan #1
+      Scan #2

@@ -1,0 +1,10 @@
+---
+source: tests/explain_snapshots.rs
+description: "-- ORDER BY + LIMIT, single table (tiebreaker c_custkey keeps it total)\nSELECT c_custkey, c_name, c_acctbal\nFROM customer\nWHERE c_mktsegment = 'HOUSEHOLD'\nORDER BY c_acctbal DESC, c_custkey\nLIMIT 10"
+expression: rendered
+---
+Project [#0.0, #0.1, #0.4]
+  Limit 10
+    Sort [#0.4 DESC, #0.0 ASC]
+      Filter (#0.3 = 'HOUSEHOLD')
+        Scan #0

@@ -1,0 +1,12 @@
+---
+source: tests/explain_snapshots.rs
+description: "-- explicit INNER JOIN ... ON: binds to a real equi-join even at P0\nSELECT c_name, o_orderkey, o_totalprice\nFROM customer INNER JOIN orders ON c_custkey = o_custkey\nWHERE o_totalprice > 50000.0"
+expression: rendered
+---
+Project [#0.1, #1.0, #1.3]
+  Join on=[#0.0 = #1.1]
+    Project [#0.0, #0.1]
+      Scan #0
+    Filter (#1.3 > 50000.0)
+      Project [#1.0, #1.1, #1.3]
+        Scan #1

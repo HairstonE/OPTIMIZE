@@ -1,0 +1,9 @@
+---
+source: tests/explain_snapshots.rs
+description: "-- constant-folding bait: literal arithmetic and a tautological conjunct\nSELECT o_orderkey, o_totalprice\nFROM orders\nWHERE o_custkey = 100 + 23 AND 1 + 1 = 2"
+expression: rendered
+---
+ProjectPhys [#0.0, #0.3]
+  FilterPhys (#0.1 = 123)
+    ProjectPhys [#0.0, #0.1, #0.3]
+      ScanPhys #0

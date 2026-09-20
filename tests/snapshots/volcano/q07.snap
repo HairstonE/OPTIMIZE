@@ -1,0 +1,12 @@
+---
+source: tests/explain_snapshots.rs
+description: "-- the same join spelled as a comma-join: P0 executes this as a literal\n-- cross product + filter. Feel the difference vs q06; that pain is P1.\nSELECT o_orderkey, l_partkey, l_quantity\nFROM orders, lineitem\nWHERE o_orderkey = l_orderkey AND l_quantity > 30"
+expression: rendered
+---
+ProjectPhys [#0.0, #1.1, #1.3]
+  HashJoinPhys on=[#0.0 = #1.0] (build, probe)
+    FilterPhys (#1.3 > 30)
+      ProjectPhys [#1.0, #1.1, #1.3]
+        ScanPhys #1
+    ProjectPhys [#0.0]
+      ScanPhys #0

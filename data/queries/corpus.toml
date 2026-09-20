@@ -1,0 +1,67 @@
+# Corpus manifest. tier = highest optimizer sophistication REQUIRED to
+# execute the query in reasonable time:
+#
+#   tier 0 — feasible even fully unoptimized: single table, 2-way joins
+#            (a 5000×10000 comma-join cross product is slow-on-purpose but
+#            finishes), or explicit INNER JOIN chains (the untouched
+#            physical planner still picks hash joins for those).
+#   tier 1 — 3+-way comma-joins: unoptimized these are literal 10^10+-row
+#            cross products and will never finish. They execute from P1
+#            (pushdown) onward.
+#
+# The differential pairs (optimizer × query) where
+# query.tier <= opt::execution_tier(optimizer). EXPLAIN snapshots ignore
+# tiers — every optimizer renders every query from day one.
+
+[q01]
+tier = 0
+[q02]
+tier = 0
+[q03]
+tier = 0
+[q04]
+tier = 0
+[q05]
+tier = 0
+[q06]
+tier = 0
+[q07]
+tier = 0 # 5000×10000 cross product: seconds, on purpose — feel it
+[q08]
+tier = 0
+[q09]
+tier = 0
+[q10]
+tier = 0
+[q11]
+tier = 1
+[q12]
+tier = 1
+[q13]
+tier = 1
+[q14]
+tier = 1
+[q15]
+tier = 1
+[q16]
+tier = 0 # explicit JOIN ... ON chain: hash joins even lobotomized
+[q17]
+tier = 1
+[q18]
+tier = 1
+[q19]
+tier = 0
+[q20]
+tier = 0 # 2-way cross product, slow-on-purpose like q07
+[q21]
+tier = 0
+[q22]
+tier = 0
+[q23]
+tier = 0
+[q24]
+tier = 0 # disconnected graph but tiny: 1000×800
+[q25]
+tier = 1
+[q26]
+tier = 0 # 2-way comma join, 1000x5000: slow-on-purpose but finishes

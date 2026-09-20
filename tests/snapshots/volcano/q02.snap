@@ -1,0 +1,9 @@
+---
+source: tests/explain_snapshots.rs
+description: "-- conjunctive filter + narrow projection on one table\nSELECT c_name, c_acctbal\nFROM customer\nWHERE c_acctbal > 7500.0 AND c_mktsegment = 'BUILDING'"
+expression: rendered
+---
+ProjectPhys [#0.1, #0.4]
+  FilterPhys ((#0.4 > 7500.0) AND (#0.3 = 'BUILDING'))
+    ProjectPhys [#0.1, #0.3, #0.4]
+      ScanPhys #0
